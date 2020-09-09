@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import {FormsModule, ReactiveFormsModule  } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 
 import { ChartsModule } from 'ng2-charts';
@@ -15,8 +15,12 @@ import { AddTestComponent } from './components/add-test/add-test.component';
 import { FoodListComponent } from './components/food-list/food-list.component';
 import { FoodDetailComponent } from './components/food-detail/food-detail.component';
 import { AutocompleteFoodComponent } from './components/autocomplete-food/autocomplete-food.component';
+import {StorageService } from './services/storage.service';
 
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { FoodService } from './services/food.service';
+import { CategoriesService } from './services/categories.service';
+import { FoodComparsionComponent } from './components/food-comparsion/food-comparsion.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     FoodListComponent,
     FoodDetailComponent,
     AutocompleteFoodComponent,
-    
+    FoodComparsionComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     ChartsModule,
     AutocompleteLibModule
   ],
-  providers: [],
+  providers: [FoodService, CategoriesService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

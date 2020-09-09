@@ -3,6 +3,7 @@ import { FoodService } from 'src/app/services/food.service';
 import { Food, Categorie } from 'src/app/components/add-food/add-food.component';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-food-list',
   templateUrl: './food-list.component.html',
@@ -18,7 +19,8 @@ export class FoodListComponent implements OnInit, OnDestroy {
   mySubscription: any;
 
 
-  constructor(private foodService: FoodService, private categoriesService: CategoriesService, private route: ActivatedRoute, private router: Router) {
+  constructor(private foodService: FoodService, private categoriesService: CategoriesService, private route: ActivatedRoute, private router: Router,
+    private storageService: StorageService) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -86,6 +88,23 @@ export class FoodListComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
+  }
+
+
+  addItemToComparsion(id): void {
+    this.storageService.addId(id);
+    const dato = localStorage.getItem('listOfIds');
+    this.navigateToComparsion();
+  }
+
+  limitReached(): boolean {
+    return this.storageService.limitReached();
+  }
+
+  private navigateToComparsion() {
+    const ids: string[] = this.storageService.getList();
+    this.router.navigate(['/foods/compare/' + ids]);
+
   }
 
 
